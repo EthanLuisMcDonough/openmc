@@ -39,7 +39,29 @@
                 "CMAKE_CXX_COMPILER": "clang++"
             },
             "environment": {
-                "LLVM_CXX_FLAGS": "-fopenmp -fopenmp-cuda-mode"
+                "LLVM_CXX_FLAGS": "-fopenmp -fopenmp-cuda-mode -L/dev/shm/ethanmc/clang/install/lib -L/dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu"
+            }
+        },
+        {
+            "name": "llvmprof",
+            "inherits": ["unity"],
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            },
+            "environment": {
+                "LLVM_CXX_FLAGS": "-fopenmp -fopenmp-cuda-mode -fprofile-generate-gpu -L/dev/shm/ethanmc/clang/install/lib -L/dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu /dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu/libomptarget.rtl.amdgpu.so"
+            }
+        },
+        {
+            "name": "llvmprof_llvm",
+            "inherits": ["unity"],
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            },
+            "environment": {
+                "LLVM_CXX_FLAGS": "-fopenmp -fopenmp-cuda-mode -fprofile-instr-generate-gpu -L/dev/shm/ethanmc/clang/install/lib -L/dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu /dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu/libomptarget.rtl.amdgpu.so -Xlinker --verbose"
             }
         },
         {
@@ -64,23 +86,6 @@
             "displayName": "Intel GPUs w/Ahead of Time (AOT) Compilation",
             "environment": {
                 "PRESET_CXX_FLAGS": "-fopenmp-targets=spir64_gen -Xopenmp-target-backend \"-device 12.60.7\""
-            }
-        },
-        {
-            "name": "llvm_native",
-            "inherits": ["llvm"],
-            "displayName": "LLVM native GPU (whatever is detected on this node)",
-            "environment": {
-                "PRESET_CXX_FLAGS": "--offload-arch=native"
-            }
-        },
-        {
-            "name": "llvm_native_mpi",
-            "inherits": ["llvm_native"],
-            "displayName": "LLVM native GPU (whatever is detected on this node) with MPI",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "mpicc",
-                "CMAKE_CXX_COMPILER": "mpicxx"
             }
         },
         {
@@ -137,11 +142,51 @@
             }
         },
         {
+            "name": "llvm_mi50",
+            "inherits": ["llvm"],
+            "displayName": "LLVM Clang MI50",
+            "environment": {
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906"
+            }
+        },
+        {
+            "name": "llvm_mi50_prof",
+            "inherits": ["llvmprof"],
+            "displayName": "LLVM Clang MI50",
+            "environment": {
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906"
+            }
+        },
+        {
+            "name": "llvm_mi50_prof_llvm",
+            "inherits": ["llvmprof_llvm"],
+            "displayName": "LLVM Clang MI50 LLVM Instr",
+            "environment": {
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 -mllvm --print-after-all -mllvm --summary-file=~/passes.txt"
+            }
+        },
+        {
+            "name": "llvm_mi50_opt",
+            "inherits": ["llvm"],
+            "displayName": "LLVM Clang MI50",
+            "environment": {
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 -fprofile-use-gpu=/g/g20/ethanmc/tests/merged.profdata"
+            }
+        },
+        {
+            "name": "llvm_mi50_opt_llvm",
+            "inherits": ["llvm"],
+            "displayName": "LLVM Clang MI50 LLVM-Instr Optimized",
+            "environment": {
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 -fprofile-instr-use-gpu=/g/g20/ethanmc/tests/merged.profdata"
+            }
+        },
+        {
             "name": "llvm_mi100",
             "inherits": ["llvm"],
             "displayName": "LLVM Clang MI100",
             "environment": {
-                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx908"
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906"
             }
         },
         {
