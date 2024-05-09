@@ -61,7 +61,7 @@
                 "CMAKE_CXX_COMPILER": "clang++"
             },
             "environment": {
-                "LLVM_CXX_FLAGS": "-fopenmp -fopenmp-cuda-mode -fprofile-instr-generate-gpu -L/dev/shm/ethanmc/clang/install/lib -L/dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu /dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu/libomptarget.rtl.amdgpu.so -Xlinker --verbose"
+                "LLVM_CXX_FLAGS": "-fopenmp -fopenmp-cuda-mode -fprofile-instr-generate-gpu -L/dev/shm/ethanmc/clang/install/lib -L/dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu /dev/shm/ethanmc/clang/install/lib/x86_64-unknown-linux-gnu/libomptarget.rtl.amdgpu.so"
             }
         },
         {
@@ -162,7 +162,7 @@
             "inherits": ["llvmprof_llvm"],
             "displayName": "LLVM Clang MI50 LLVM Instr",
             "environment": {
-                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 -mllvm --print-after-all -mllvm --summary-file=~/passes.txt"
+                "PRESET_CXX_FLAGS": "-fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906"
             }
         },
         {
