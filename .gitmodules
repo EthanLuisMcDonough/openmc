@@ -7,7 +7,6 @@
 [submodule "vendor/xtensor"]
 	path = vendor/xtensor
 	url = https://github.com/EthanLuisMcDonough/xtensor.git
-	branch = clangfix
 [submodule "vendor/xtl"]
 	path = vendor/xtl
 	url = https://github.com/xtensor-stack/xtl.git
